@@ -1,0 +1,73 @@
+@use '../../variables' as vars;
+
+.table {
+  border-collapse: separate;
+  width: 100%;
+  border-spacing: 0;
+  overflow: hidden;
+
+  button {
+    border: none;
+    background-color: #fff;
+    width: 24px;
+    height: 24px;
+    background-image: url('../../assets/icons/Vector.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+  }
+
+  td {
+    border: 1px solid rgba(231, 231, 245, 1);
+    padding: 24px;
+    div {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  }
+  tr {
+    cursor: pointer;
+  }
+  th {
+    border: 1px solid rgba(231, 231, 245, 1);
+    color: rgba(168, 168, 197, 1);
+    font-weight: 200;
+    padding: 24px;
+    cursor: pointer;
+    text-align: left;
+    div {
+      display: flex;
+      gap: 10px;
+    }
+  }
+  .status {
+    border: 1px solid;
+    border-radius: 20px;
+    padding: 2px 5px;
+    &.active {
+      color: vars.$StatusGreen;
+      // background-color: ;
+    }
+    &.stopped {
+      color: vars.$StatusRed;
+    }
+    &.paused {
+      color: vars.$StatusOrange;
+    }
+  }
+  thead th:first-child {
+    border-top-left-radius: 12px;
+  }
+
+  thead th:last-child {
+    border-top-right-radius: 12px;
+  }
+
+  tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+  }
+  tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+  }
+}

@@ -1,0 +1,15 @@
+@use '../../variables' as vars;
+
+.statsCard {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border: vars.$border;
+  border-radius: 20px;
+  width: 100%;
+  box-shadow: vars.$shadow-box;
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+}

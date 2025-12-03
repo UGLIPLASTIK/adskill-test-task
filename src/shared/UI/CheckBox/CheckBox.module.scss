@@ -1,0 +1,32 @@
+@use '@/variables' as vars;
+
+.checkbox input {
+  display: none;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid vars.$MainBlue;
+  border-radius: 6px;
+  display: inline-block;
+  position: relative;
+  transition: background-color 0.2s ease;
+  vertical-align: middle;
+}
+
+.checkbox input:checked + .checkmark {
+  background-color: vars.$MainBlue; /* <-- фон при active */
+}
+
+.checkbox input:checked + .checkmark::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: -1px;
+  width: 6px;
+  height: 12px;
+  border: solid vars.$main-color;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
