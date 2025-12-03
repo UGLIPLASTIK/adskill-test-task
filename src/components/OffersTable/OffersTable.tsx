@@ -10,10 +10,13 @@ import CheckBox from '@/shared/UI/CheckBox';
 import TableRow from './TableRow/TableRow';
 import { FIlteredOffers } from '@/store/slices/offersSlice/offersSelectors';
 import { SortingFilter } from '@/store/slices/filtersSlice/filterSelectors';
+import { useCallback, useState } from 'react';
+import { SelectAllOffers } from '@/store/slices/offersSlice/offersSlice';
 
 const OffersTable = () => {
   const currentOffers = useSelector(FIlteredOffers);
   const currentFilter = useSelector(SortingFilter);
+  const [allSelected, setAllSelected] = useState(false);
   const dispatch = useDispatch();
   const setSorting = (filter: SortableKeys) => {
     if (currentFilter === filter) {
@@ -23,13 +26,21 @@ const OffersTable = () => {
     dispatch(setfilter(filter));
   };
 
+  const selectAll = useCallback(() => {
+    setAllSelected((prew) => {
+      const newValue = !prew;
+      dispatch(SelectAllOffers(newValue));
+      return newValue;
+    });
+  }, []);
+
   return (
     <table className={styles.table}>
       <thead>
         <tr>
           <th>
             <div>
-              <CheckBox />
+              <CheckBox selected={allSelected} onClick={selectAll} />
               Название офера
             </div>
           </th>

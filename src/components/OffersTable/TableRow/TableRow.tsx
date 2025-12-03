@@ -3,8 +3,11 @@ import CheckBox from '@/shared/UI/CheckBox';
 import classNames from 'classnames';
 import { format, parseISO } from 'date-fns';
 import styles from '../OffersTable.module.scss';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import OfferInfo from '@/components/OfferInfo';
+import { ToggleOfferSelected } from '@/store/slices/offersSlice/offersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { SelectedOffers } from '@/store/slices/offersSlice/offersSelectors';
 
 type Props = {
   item: Offer;
@@ -12,12 +15,18 @@ type Props = {
 
 const TableRow = ({ item }: Props) => {
   const [open, setOpen] = useState(false);
+  const selectedOffers = useSelector(SelectedOffers);
+  const selected = selectedOffers.includes(item.id);
+  const dispatch = useDispatch();
+  const onClick = () => {
+    dispatch(ToggleOfferSelected({ id: item.id, selected: selected }));
+  };
   return (
     <>
-      <tr key={item.id}>
+      <tr>
         <td>
           <div>
-            <CheckBox />
+            <CheckBox selected={selected} onClick={onClick} />
             <button onClick={() => setOpen((prew) => !prew)}></button>
             {item.name}
           </div>
@@ -37,4 +46,4 @@ const TableRow = ({ item }: Props) => {
   );
 };
 
-export default TableRow;
+export default memo(TableRow);

@@ -5,6 +5,8 @@ export const Offers = (state: RootState) => state.offers.offers;
 
 export const Metrics = (state: RootState) => state.offers.currentMetrics;
 
+export const SelectedOffers = (state: RootState) => state.offers.selectedOffers;
+
 const filter = (state: RootState) => state.filters.currentFilters;
 
 const progressive = (state: RootState) => state.filters.progressive;
@@ -12,7 +14,6 @@ const progressive = (state: RootState) => state.filters.progressive;
 export const FIlteredOffers = createSelector(
   [Offers, filter, progressive],
   (offers, filter, progressive) => {
-    console.log(progressive);
     if (!filter) return offers;
 
     const sortedOffers = [...offers].sort((a, b) => {
@@ -27,7 +28,7 @@ export const FIlteredOffers = createSelector(
         comparison = aVal.localeCompare(bVal);
       }
 
-      return progressive ? comparison : -comparison; // <-- сюда добавили progressive
+      return progressive ? comparison : -comparison;
     });
 
     return sortedOffers;

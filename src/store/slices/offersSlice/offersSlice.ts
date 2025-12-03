@@ -1,16 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import data from '@/mock-data.json';
-// import type { PayloadAction } from '@reduxjs/toolkit';
-// import type { Tincture, Sector, SessionTin } from '@/types';
 
 interface state {
   currentMetrics: typeof data.currentMetrics;
   offers: typeof data.offers;
+  selectedOffers: string[];
 }
+
+type checkboxPayload = { id: string; selected: boolean };
 
 const initialState: state = {
   currentMetrics: data.currentMetrics,
   offers: data.offers,
+  selectedOffers: [],
 };
 
 const offersSlice = createSlice({
@@ -18,22 +20,25 @@ const offersSlice = createSlice({
   initialState,
 
   reducers: {
-    // setList: (state, action: PayloadAction<Tincture[]>) => {
-    //   state.allTinctures = action.payload;
-    // },
-    // setCurrentSector: (state, action: PayloadAction<Sector>) => {
-    //   state.currentSector = action.payload;
-    // },
-    // addToSession: (state, action: PayloadAction<SessionTin>) => {
-    //   state.sessionTins.push(action.payload);
-    // },
-    // clearSession: (state) => {
-    //   localStorage.removeItem('sessionCollection');
-    //   state.sessionTins = [];
-    // },
+    ToggleOfferSelected: (state, action: PayloadAction<checkboxPayload>) => {
+      if (!action.payload.selected) {
+        state.selectedOffers.push(action.payload.id);
+      } else {
+        state.selectedOffers = state.selectedOffers.filter(
+          (item) => item !== action.payload.id
+        );
+      }
+    },
+    SelectAllOffers: (state, action: PayloadAction<boolean>) => {
+      if (action.payload) {
+        state.selectedOffers = state.offers.map((offer) => offer.id);
+      } else {
+        state.selectedOffers = [];
+      }
+    },
   },
 });
 
-export const {} = offersSlice.actions;
+export const { ToggleOfferSelected, SelectAllOffers } = offersSlice.actions;
 
 export default offersSlice.reducer;
