@@ -30,7 +30,7 @@ const OffersPage = () => {
       </div>
       <div className={styles.offers}></div>
       {!isMobile ? (
-        <OffersTable offers={currentOffers as Offer[]} />
+        <OffersTable />
       ) : (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
           {currentOffers.map((offer) => (
